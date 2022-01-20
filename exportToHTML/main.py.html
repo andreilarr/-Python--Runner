@@ -1,0 +1,535 @@
+<html>
+<head>
+<title>main.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6a8759;}
+.s3 { color: #6897bb;}
+.s4 { color: #808080;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+main.py</font>
+</center></td></tr></table>
+<pre><span class="s0">from </span><span class="s1">graphics </span><span class="s0">import </span><span class="s1">*</span>
+
+<span class="s0">def </span><span class="s1">main():</span>
+    <span class="s1">win = GraphWin(</span><span class="s2">&quot;Runner&quot;</span><span class="s0">, </span><span class="s3">1000</span><span class="s0">, </span><span class="s3">500</span><span class="s0">, </span><span class="s1">autoflush=</span><span class="s0">False</span><span class="s1">)</span>
+    <span class="s1">win.setBackground(</span><span class="s2">'blue'</span><span class="s1">)</span>
+    <span class="s4">#verifica teclas</span>
+    <span class="s1">key = win.checkKey()</span>
+
+    <span class="s1">carregarArquivos=</span><span class="s3">1</span>
+    <span class="s1">playerVivo=</span><span class="s3">1</span>
+    <span class="s1">cenarioCriado=</span><span class="s3">0</span>
+    <span class="s1">cachorroCriado=</span><span class="s3">0</span>
+    <span class="s1">carroPode=</span><span class="s3">0</span>
+    <span class="s1">skateCriado=</span><span class="s3">0</span>
+    <span class="s1">playerCriado=</span><span class="s3">0</span>
+    <span class="s1">layoutCriado=</span><span class="s3">0</span>
+    <span class="s1">lixoCriado=</span><span class="s3">0</span>
+
+
+    <span class="s0">while </span><span class="s1">key != </span><span class="s2">&quot;Escape&quot;</span><span class="s1">:</span>
+        <span class="s4">#SISTEMA DE RESTART</span>
+        <span class="s0">if </span><span class="s1">(playerVivo == </span><span class="s3">0 </span><span class="s0">and </span><span class="s1">key==</span><span class="s2">&quot;return&quot;</span><span class="s1">) </span><span class="s0">or </span><span class="s1">key==</span><span class="s2">&quot;r&quot; </span><span class="s0">or </span><span class="s1">carregarArquivos==</span><span class="s3">1</span><span class="s1">:</span>
+            <span class="s4"># JOGO</span>
+            <span class="s1">jogoPausado = </span><span class="s3">0</span>
+            <span class="s1">jogoPausado_cont = </span><span class="s3">0</span>
+            <span class="s1">podeJogar = </span><span class="s3">1</span>
+
+            <span class="s4"># CARRO</span>
+            <span class="s0">if </span><span class="s1">carroPode==</span><span class="s3">1</span><span class="s1">:</span>
+                <span class="s1">carro.undraw()</span>
+            <span class="s1">carro = Image(Point(</span><span class="s3">1500</span><span class="s0">, </span><span class="s3">587</span><span class="s1">)</span><span class="s0">, </span><span class="s2">&quot;carro.png&quot;</span><span class="s1">)</span>
+            <span class="s1">carro.draw(win)</span>
+            <span class="s1">carroPode = </span><span class="s3">1</span>
+            <span class="s1">carro_cont = </span><span class="s3">0</span>
+
+            <span class="s4"># CENARIO</span>
+            <span class="s0">if </span><span class="s1">cenarioCriado==</span><span class="s3">1</span><span class="s1">:</span>
+                <span class="s1">cenario.undraw()</span>
+                <span class="s1">paralax.undraw()</span>
+            <span class="s1">paralax = Image(Point(</span><span class="s3">1000</span><span class="s0">, </span><span class="s3">250</span><span class="s1">)</span><span class="s0">, </span><span class="s2">&quot;paralax.png&quot;</span><span class="s1">)</span>
+            <span class="s1">paralax.draw(win)</span>
+            <span class="s1">cenario = Image(Point(</span><span class="s3">15000</span><span class="s0">, </span><span class="s3">250</span><span class="s1">)</span><span class="s0">, </span><span class="s2">&quot;cenario.png&quot;</span><span class="s1">)</span>
+            <span class="s1">cenario.draw(win)</span>
+            <span class="s1">cenarioMovimento = </span><span class="s3">1</span>
+            <span class="s1">cenarioLocal = </span><span class="s3">0</span>
+            <span class="s1">cenarioCriado = </span><span class="s3">1</span>
+
+            <span class="s4"># ANIMAÇÃO CACHORRO</span>
+            <span class="s0">if </span><span class="s1">cachorroCriado==</span><span class="s3">1</span><span class="s1">:</span>
+                <span class="s1">imagem.undraw()</span>
+            <span class="s1">cachorro = </span><span class="s3">0            </span><span class="s4">#contador do cachorro</span>
+            <span class="s1">imagem = Image(Point(</span><span class="s3">400 </span><span class="s1">+ </span><span class="s3">3000</span><span class="s0">, </span><span class="s3">390</span><span class="s1">)</span><span class="s0">, </span><span class="s2">&quot;cachorro1.png&quot;</span><span class="s1">)</span>
+            <span class="s1">centro = imagem.getAnchor()</span>
+            <span class="s1">localCachorro = </span><span class="s3">0</span>
+            <span class="s1">imagem.draw(win)</span>
+            <span class="s1">cachorroPosEsq = </span><span class="s3">350 </span><span class="s1">+ </span><span class="s3">3000</span>
+            <span class="s1">cachorroPosDir = </span><span class="s3">450 </span><span class="s1">+ </span><span class="s3">3000</span>
+            <span class="s1">cachorroCriado=</span><span class="s3">1</span>
+
+            <span class="s4"># SKATE</span>
+            <span class="s0">if </span><span class="s1">skateCriado==</span><span class="s3">1</span><span class="s1">:</span>
+                <span class="s1">skate.undraw()</span>
+            <span class="s1">skate = Image(Point(</span><span class="s3">500 </span><span class="s1">+ </span><span class="s3">1000</span><span class="s0">, </span><span class="s3">370</span><span class="s1">)</span><span class="s0">, </span><span class="s2">&quot;skate.png&quot;</span><span class="s1">)</span>
+            <span class="s1">skateCentro = skate.getAnchor()</span>
+            <span class="s1">skate.draw(win)</span>
+            <span class="s1">skate_cont = </span><span class="s3">0</span>
+            <span class="s1">skateMove = </span><span class="s3">1</span>
+            <span class="s1">skate_pos = </span><span class="s3">465 </span><span class="s1">+ </span><span class="s3">1000</span>
+            <span class="s1">skate_posDir = </span><span class="s3">550 </span><span class="s1">+ </span><span class="s3">1000</span>
+            <span class="s1">desenharSkatistaMorto = </span><span class="s3">1</span>
+            <span class="s1">skateCriado = </span><span class="s3">1</span>
+
+            <span class="s4"># PLAYER</span>
+            <span class="s0">if </span><span class="s1">playerCriado==</span><span class="s3">1</span><span class="s1">:</span>
+                <span class="s1">player.undraw()</span>
+            <span class="s1">podeTrocarVida = </span><span class="s3">2</span>
+            <span class="s1">playerVida = </span><span class="s3">3</span>
+            <span class="s1">playerVivo = </span><span class="s3">1</span>
+            <span class="s1">delay_para_pular = </span><span class="s3">0</span>
+            <span class="s1">limitadorDeAltura_cont = </span><span class="s3">0</span>
+            <span class="s1">limitadorDeAltura = </span><span class="s3">0</span>
+            <span class="s1">altura = </span><span class="s3">0</span>
+            <span class="s1">player_cont = </span><span class="s3">0</span>
+            <span class="s1">player = Image(Point(</span><span class="s3">200</span><span class="s0">, </span><span class="s3">390</span><span class="s1">)</span><span class="s0">, </span><span class="s2">&quot;sprite1.png&quot;</span><span class="s1">)</span>
+            <span class="s1">playerCentro = player.getAnchor()</span>
+            <span class="s1">player.draw(win)</span>
+            <span class="s1">posicao = </span><span class="s3">0</span>
+            <span class="s1">posicaoPlayer = </span><span class="s3">264</span>
+            <span class="s1">posicaoPlayerEsq = </span><span class="s3">133</span>
+            <span class="s1">playerCriado=</span><span class="s3">1</span>
+
+            <span class="s4"># layout</span>
+            <span class="s0">if </span><span class="s1">layoutCriado==</span><span class="s3">1</span><span class="s1">:</span>
+                <span class="s1">layout.undraw()</span>
+            <span class="s1">layout = Image(Point(</span><span class="s3">500</span><span class="s0">, </span><span class="s3">250</span><span class="s1">)</span><span class="s0">, </span><span class="s2">&quot;layout3.png&quot;</span><span class="s1">)</span>
+            <span class="s1">layout.draw(win)</span>
+            <span class="s1">layoutCriado=</span><span class="s3">1</span>
+
+            <span class="s4"># LIXO</span>
+            <span class="s0">if </span><span class="s1">lixoCriado==</span><span class="s3">1</span><span class="s1">:</span>
+                <span class="s1">lixo.undraw()</span>
+            <span class="s1">lixo = Image(Point(</span><span class="s3">100</span><span class="s1">+</span><span class="s3">600</span><span class="s0">, </span><span class="s3">385</span><span class="s1">)</span><span class="s0">, </span><span class="s2">&quot;lixo.png&quot;</span><span class="s1">)</span>
+            <span class="s1">lixo.draw(win)</span>
+            <span class="s1">lixo_cont = </span><span class="s3">0</span>
+            <span class="s1">lixoMove = </span><span class="s3">1</span>
+            <span class="s1">lixoPosicaoEsq = </span><span class="s3">96</span><span class="s1">+</span><span class="s3">600</span>
+            <span class="s1">lixoPosicaoDir = </span><span class="s3">123</span><span class="s1">+</span><span class="s3">600</span>
+            <span class="s1">lixoCriado=</span><span class="s3">1</span>
+
+            <span class="s4">#Para evitar bug</span>
+            <span class="s1">carregarArquivos=</span><span class="s3">0</span>
+
+
+
+
+        <span class="s1">key = win.checkKey()</span>
+        <span class="s0">if </span><span class="s1">playerVivo==</span><span class="s3">1</span><span class="s1">:</span>
+            <span class="s1">update(</span><span class="s3">120</span><span class="s1">)</span>
+        <span class="s0">else</span><span class="s1">:</span>
+            <span class="s1">update(</span><span class="s3">30</span><span class="s1">)</span>
+
+        <span class="s4">#SISTEMA DE COLISÃO</span>
+            <span class="s4">#COLISAO ENTRE PLAYER E LIXO</span>
+        <span class="s0">if </span><span class="s1">((posicaoPlayerEsq&lt;=lixoPosicaoEsq </span><span class="s0">and </span><span class="s1">lixoPosicaoEsq&lt;=posicaoPlayer) </span><span class="s0">or </span><span class="s1">(posicaoPlayerEsq&lt;=lixoPosicaoDir </span><span class="s0">and </span><span class="s1">lixoPosicaoDir&lt;=posicaoPlayer))  </span><span class="s0">and </span><span class="s1">posicao==</span><span class="s3">1 </span><span class="s0">and </span><span class="s1">altura&lt;</span><span class="s3">10</span><span class="s1">:</span>
+            <span class="s1">playerVida=playerVida-</span><span class="s3">1</span>
+            <span class="s1">lixoMove = </span><span class="s3">0</span>
+            <span class="s1">lixoPosicaoDir=</span><span class="s3">100000</span>
+            <span class="s1">lixoPosicaoEsq=</span><span class="s3">100000</span>
+
+
+            <span class="s4">#COLISAO ENTRE PLAYER E CACHORRO</span>
+        <span class="s0">if </span><span class="s1">((posicaoPlayerEsq&lt;=cachorroPosEsq </span><span class="s0">and </span><span class="s1">cachorroPosEsq&lt;=posicaoPlayer) </span><span class="s0">or </span><span class="s1">(posicaoPlayerEsq&lt;=cachorroPosDir </span><span class="s0">and </span><span class="s1">cachorroPosDir&lt;=posicaoPlayer))  </span><span class="s0">and </span><span class="s1">posicao==</span><span class="s3">0 </span><span class="s0">and </span><span class="s1">altura&lt;</span><span class="s3">10</span><span class="s1">:</span>
+            <span class="s1">playerVida=playerVida-</span><span class="s3">1</span>
+            <span class="s1">lixoMove = </span><span class="s3">0</span>
+            <span class="s1">cachorroPosDir=</span><span class="s3">100000</span>
+            <span class="s1">cachorroPosEsq=</span><span class="s3">100000</span>
+
+        <span class="s4">#SISTEMA DE COLISÃO ENTRE JOGADOR E SKATISTA</span>
+        <span class="s0">if </span><span class="s1">((posicaoPlayerEsq&lt;=skate_pos </span><span class="s0">and </span><span class="s1">skate_pos&lt;=posicaoPlayer) </span><span class="s0">or </span><span class="s1">(posicaoPlayerEsq&lt;=skate_posDir </span><span class="s0">and </span><span class="s1">skate_posDir&lt;=posicaoPlayer)) </span><span class="s0">and </span><span class="s1">posicao==</span><span class="s3">0</span><span class="s1">:</span>
+            <span class="s1">playerVida=playerVida-</span><span class="s3">1</span>
+            <span class="s1">skateMove=</span><span class="s3">0</span>
+            <span class="s1">skate_pos=</span><span class="s3">100000</span>
+            <span class="s1">skate_posDir=</span><span class="s3">100000</span>
+
+        <span class="s4">#SISTEMA DE MORTE</span>
+        <span class="s0">if </span><span class="s1">playerVida==</span><span class="s3">0</span><span class="s1">:</span>
+            <span class="s0">if </span><span class="s1">podeTrocarVida==</span><span class="s3">0</span><span class="s1">:</span>
+                <span class="s4">#LAYOUT MORTO</span>
+                <span class="s1">layout.undraw()</span>
+                <span class="s1">layout = Image(Point(</span><span class="s3">500</span><span class="s0">, </span><span class="s3">250</span><span class="s1">)</span><span class="s0">, </span><span class="s2">&quot;morto.png&quot;</span><span class="s1">)</span>
+                <span class="s1">layout.draw(win)</span>
+                <span class="s4">#PLAYER MORTO</span>
+                <span class="s1">player.undraw()</span>
+                <span class="s1">playerCentro = player.getAnchor()</span>
+                <span class="s1">player = Image(playerCentro</span><span class="s0">, </span><span class="s2">&quot;playerMorto.png&quot;</span><span class="s1">)</span>
+                <span class="s1">player.draw(win)</span>
+                <span class="s1">podeTrocarVida = </span><span class="s3">3</span>
+
+            <span class="s1">playerVivo=</span><span class="s3">0</span>
+            <span class="s1">posicaoPlayer=</span><span class="s3">0</span>
+            <span class="s1">posicaoPlayerEsq=</span><span class="s3">0</span>
+            <span class="s1">skate_cont+=</span><span class="s3">1</span>
+
+        <span class="s4">#LAYOUT</span>
+        <span class="s0">if </span><span class="s1">playerVida==</span><span class="s3">2 </span><span class="s0">and </span><span class="s1">podeTrocarVida==</span><span class="s3">2</span><span class="s1">:</span>
+            <span class="s1">layout.undraw()</span>
+            <span class="s1">layout = Image(Point(</span><span class="s3">500</span><span class="s0">, </span><span class="s3">250</span><span class="s1">)</span><span class="s0">, </span><span class="s2">&quot;layout2.png&quot;</span><span class="s1">)</span>
+            <span class="s1">layout.draw(win)</span>
+            <span class="s1">podeTrocarVida=</span><span class="s3">1</span>
+
+        <span class="s0">if </span><span class="s1">playerVida==</span><span class="s3">1 </span><span class="s0">and </span><span class="s1">podeTrocarVida==</span><span class="s3">1</span><span class="s1">:</span>
+            <span class="s1">layout.undraw()</span>
+            <span class="s1">layout = Image(Point(</span><span class="s3">500</span><span class="s0">, </span><span class="s3">250</span><span class="s1">)</span><span class="s0">, </span><span class="s2">&quot;layout1.png&quot;</span><span class="s1">)</span>
+            <span class="s1">layout.draw(win)</span>
+            <span class="s1">podeTrocarVida=</span><span class="s3">0</span>
+
+        <span class="s4">#SISTEMA DE PAUSE</span>
+        <span class="s0">if </span><span class="s1">(jogoPausado == </span><span class="s3">1 </span><span class="s0">or </span><span class="s1">jogoPausado==</span><span class="s3">0</span><span class="s1">) </span><span class="s0">and </span><span class="s1">jogoPausado_cont&lt;</span><span class="s3">20</span><span class="s1">:</span>
+            <span class="s1">jogoPausado_cont += </span><span class="s3">1</span>
+
+        <span class="s0">if </span><span class="s1">key == </span><span class="s2">&quot;p&quot; </span><span class="s0">or </span><span class="s1">key==</span><span class="s2">&quot;P&quot;</span><span class="s1">:</span>
+            <span class="s0">if </span><span class="s1">jogoPausado == </span><span class="s3">1</span><span class="s1">:</span>
+                <span class="s0">if </span><span class="s1">jogoPausado_cont&gt;</span><span class="s3">10</span><span class="s1">:</span>
+                    <span class="s1">podeJogar = </span><span class="s3">1</span>
+                    <span class="s1">jogoPausado=</span><span class="s3">0</span>
+                    <span class="s1">jogoPausado_cont = </span><span class="s3">0</span>
+
+            <span class="s0">if </span><span class="s1">jogoPausado == </span><span class="s3">0</span><span class="s1">:</span>
+                <span class="s0">if </span><span class="s1">jogoPausado_cont&gt;</span><span class="s3">10</span><span class="s1">:</span>
+                    <span class="s1">podeJogar=</span><span class="s3">0</span>
+                    <span class="s1">jogoPausado=</span><span class="s3">1</span>
+                    <span class="s1">jogoPausado_cont=</span><span class="s3">0</span>
+
+
+
+
+        <span class="s4">#VARIAVEL PARA PODER PAUSAR</span>
+        <span class="s0">if </span><span class="s1">podeJogar==</span><span class="s3">1</span><span class="s1">:</span>
+            <span class="s4">#CÓDIGOS ABAIXO PARA FUNCIONAR A VARIÁVEL DE PAUSE</span>
+            <span class="s4"># lixo</span>
+            <span class="s0">if </span><span class="s1">lixoMove == </span><span class="s3">1 </span><span class="s0">and </span><span class="s1">playerVivo == </span><span class="s3">1</span><span class="s1">:</span>
+                <span class="s1">lixo.move(-</span><span class="s3">13</span><span class="s0">, </span><span class="s3">0</span><span class="s1">)</span>
+                <span class="s1">lixo_cont += </span><span class="s3">1</span>
+                <span class="s1">lixoPosicaoDir = lixoPosicaoDir - </span><span class="s3">13</span>
+                <span class="s1">lixoPosicaoEsq = lixoPosicaoEsq - </span><span class="s3">13</span>
+                <span class="s0">if </span><span class="s1">lixo_cont &gt; </span><span class="s3">150</span><span class="s1">:</span>
+                    <span class="s1">lixo.undraw()</span>
+                    <span class="s1">lixo = Image(Point(</span><span class="s3">100</span><span class="s1">+</span><span class="s3">1000</span><span class="s0">, </span><span class="s3">385</span><span class="s1">)</span><span class="s0">, </span><span class="s2">&quot;lixo.png&quot;</span><span class="s1">)</span>
+                    <span class="s1">lixo.draw(win)</span>
+                    <span class="s1">lixo_cont = </span><span class="s3">0</span>
+                    <span class="s1">lixoPosicaoEsq = </span><span class="s3">96</span><span class="s1">+</span><span class="s3">1000</span>
+                    <span class="s1">lixoPosicaoDir = </span><span class="s3">123</span><span class="s1">+</span><span class="s3">1000</span>
+
+            <span class="s0">if </span><span class="s1">lixoMove == </span><span class="s3">0</span><span class="s1">:</span>
+                <span class="s1">lixo.undraw()</span>
+                <span class="s0">if </span><span class="s1">playerVivo == </span><span class="s3">1</span><span class="s1">:</span>
+                    <span class="s1">lixo.move(-</span><span class="s3">13</span><span class="s0">, </span><span class="s3">0</span><span class="s1">)</span>
+                <span class="s1">lixoCentro = lixo.getAnchor()</span>
+                <span class="s1">lixo = Image(lixoCentro</span><span class="s0">, </span><span class="s2">&quot;lixoCaido.png&quot;</span><span class="s1">)</span>
+                <span class="s1">lixo.draw(win)</span>
+                <span class="s1">lixo_cont += </span><span class="s3">1</span>
+
+                <span class="s0">if </span><span class="s1">lixo_cont &gt; </span><span class="s3">150</span><span class="s1">:</span>
+                    <span class="s1">lixoMove = </span><span class="s3">1</span>
+
+            <span class="s4">#ANIMAÇÃO DO JOGADOR----------</span>
+
+            <span class="s4">#SISTEMA DE PULO</span>
+            <span class="s0">if </span><span class="s1">delay_para_pular&gt;</span><span class="s3">0</span><span class="s1">:</span>
+                <span class="s1">limitadorDeAltura = </span><span class="s3">1</span>
+
+            <span class="s0">if </span><span class="s1">limitadorDeAltura == </span><span class="s3">1</span><span class="s1">:</span>
+                <span class="s1">delay_para_pular+=</span><span class="s3">1</span>
+
+            <span class="s0">if </span><span class="s1">delay_para_pular&gt;</span><span class="s3">30</span><span class="s1">:</span>
+                <span class="s1">limitadorDeAltura=</span><span class="s3">0</span>
+                <span class="s1">delay_para_pular=</span><span class="s3">0</span>
+
+            <span class="s0">if </span><span class="s1">altura&gt;</span><span class="s3">0</span><span class="s1">:</span>
+                <span class="s1">player.move(</span><span class="s3">0</span><span class="s0">, </span><span class="s3">10</span><span class="s1">)</span>
+                <span class="s1">playerCentro = player.getAnchor()</span>
+                <span class="s1">player.undraw()</span>
+                <span class="s1">player = Image(playerCentro </span><span class="s0">, </span><span class="s2">&quot;pulando.png&quot;</span><span class="s1">)</span>
+                <span class="s1">player.draw(win)</span>
+                <span class="s1">altura -= </span><span class="s3">10</span>
+
+            <span class="s0">elif </span><span class="s1">limitadorDeAltura==</span><span class="s3">0 </span><span class="s0">and </span><span class="s1">key == </span><span class="s2">&quot;space&quot; </span><span class="s0">and </span><span class="s1">playerVivo==</span><span class="s3">1</span><span class="s1">:</span>
+                <span class="s1">player.move(</span><span class="s3">0</span><span class="s0">, </span><span class="s1">-</span><span class="s3">150</span><span class="s1">)</span>
+                <span class="s1">playerCentro = player.getAnchor()</span>
+                <span class="s1">player.undraw()</span>
+                <span class="s1">player = Image(playerCentro </span><span class="s0">, </span><span class="s2">&quot;pulando.png&quot;</span><span class="s1">)</span>
+                <span class="s1">player.draw(win)</span>
+                <span class="s1">altura += </span><span class="s3">150</span>
+                <span class="s1">delay_para_pular += </span><span class="s3">1</span>
+
+            <span class="s4">#VAI PRA DIREITA</span>
+            <span class="s0">elif </span><span class="s1">(key == </span><span class="s2">&quot;Right&quot; </span><span class="s0">or </span><span class="s1">key == </span><span class="s2">&quot;d&quot; </span><span class="s0">or </span><span class="s1">key == </span><span class="s2">&quot;D&quot;</span><span class="s1">) </span><span class="s0">and </span><span class="s1">posicaoPlayer&lt;</span><span class="s3">1000</span><span class="s1">:</span>
+                <span class="s0">if </span><span class="s1">playerVivo==</span><span class="s3">1</span><span class="s1">:</span>
+                    <span class="s0">if </span><span class="s1">player_cont &lt; </span><span class="s3">3</span><span class="s1">:</span>
+                        <span class="s1">player.move(</span><span class="s3">4</span><span class="s0">, </span><span class="s3">0</span><span class="s1">)</span>
+                        <span class="s1">playerCentro = player.getAnchor()</span>
+                        <span class="s1">player.undraw()</span>
+                        <span class="s1">player = Image(playerCentro </span><span class="s0">, </span><span class="s2">&quot;sprite1.png&quot;</span><span class="s1">)</span>
+                        <span class="s1">player.draw(win)</span>
+                        <span class="s1">posicaoPlayerEsq = posicaoPlayerEsq + </span><span class="s3">4</span>
+                        <span class="s1">posicaoPlayer = posicaoPlayer + </span><span class="s3">4</span>
+                        <span class="s1">player_cont+=</span><span class="s3">1</span>
+
+
+                    <span class="s0">if </span><span class="s1">player_cont &gt;= </span><span class="s3">3 </span><span class="s0">and </span><span class="s1">player_cont &lt; </span><span class="s3">6</span><span class="s1">:</span>
+                        <span class="s1">player.move(</span><span class="s3">4</span><span class="s0">, </span><span class="s3">0</span><span class="s1">)</span>
+                        <span class="s1">playerCentro = player.getAnchor()</span>
+                        <span class="s1">player.undraw()</span>
+                        <span class="s1">player = Image(playerCentro </span><span class="s0">, </span><span class="s2">&quot;sprite2.png&quot;</span><span class="s1">)</span>
+                        <span class="s1">player.draw(win)</span>
+                        <span class="s1">posicaoPlayerEsq = posicaoPlayerEsq + </span><span class="s3">4</span>
+                        <span class="s1">posicaoPlayer = posicaoPlayer + </span><span class="s3">4</span>
+                        <span class="s1">player_cont += </span><span class="s3">1</span>
+
+
+                    <span class="s0">if </span><span class="s1">player_cont &gt;= </span><span class="s3">6 </span><span class="s0">and </span><span class="s1">player_cont &lt; </span><span class="s3">9</span><span class="s1">:</span>
+                        <span class="s1">player.move(</span><span class="s3">4</span><span class="s0">, </span><span class="s3">0</span><span class="s1">)</span>
+                        <span class="s1">playerCentro = player.getAnchor()</span>
+                        <span class="s1">player.undraw()</span>
+                        <span class="s1">player = Image(playerCentro </span><span class="s0">, </span><span class="s2">&quot;sprite3.png&quot;</span><span class="s1">)</span>
+                        <span class="s1">player.draw(win)</span>
+                        <span class="s1">posicaoPlayerEsq = posicaoPlayerEsq + </span><span class="s3">4</span>
+                        <span class="s1">posicaoPlayer = posicaoPlayer + </span><span class="s3">4</span>
+                        <span class="s1">player_cont += </span><span class="s3">1</span>
+
+
+                    <span class="s0">if </span><span class="s1">player_cont &gt;= </span><span class="s3">9 </span><span class="s0">and </span><span class="s1">player_cont &lt; </span><span class="s3">12</span><span class="s1">:</span>
+                        <span class="s1">player.move(</span><span class="s3">4</span><span class="s0">, </span><span class="s3">0</span><span class="s1">)</span>
+                        <span class="s1">playerCentro = player.getAnchor()</span>
+                        <span class="s1">player.undraw()</span>
+                        <span class="s1">player = Image(playerCentro </span><span class="s0">, </span><span class="s2">&quot;sprite4.png&quot;</span><span class="s1">)</span>
+                        <span class="s1">player.draw(win)</span>
+                        <span class="s1">posicaoPlayerEsq = posicaoPlayerEsq + </span><span class="s3">4</span>
+                        <span class="s1">posicaoPlayer = posicaoPlayer + </span><span class="s3">4</span>
+                        <span class="s1">player_cont += </span><span class="s3">1</span>
+
+                    <span class="s0">if </span><span class="s1">player_cont == </span><span class="s3">12</span><span class="s1">:</span>
+                        <span class="s1">player_cont = </span><span class="s3">0</span>
+
+            <span class="s0">elif </span><span class="s1">(key == </span><span class="s2">&quot;Left&quot; </span><span class="s0">or </span><span class="s1">key == </span><span class="s2">&quot;a&quot; </span><span class="s0">or </span><span class="s1">key == </span><span class="s2">&quot;A&quot;</span><span class="s1">) </span><span class="s0">and </span><span class="s1">posicaoPlayerEsq&gt;</span><span class="s3">0</span><span class="s1">:</span>
+                <span class="s0">if </span><span class="s1">playerVivo == </span><span class="s3">1</span><span class="s1">:</span>
+                    <span class="s0">if </span><span class="s1">player_cont &lt; </span><span class="s3">3</span><span class="s1">:</span>
+                        <span class="s1">player.move(-</span><span class="s3">4</span><span class="s0">, </span><span class="s3">0</span><span class="s1">)</span>
+                        <span class="s1">playerCentro = player.getAnchor()</span>
+                        <span class="s1">player.undraw()</span>
+                        <span class="s1">player = Image(playerCentro</span><span class="s0">, </span><span class="s2">&quot;sprite1.png&quot;</span><span class="s1">)</span>
+                        <span class="s1">player.draw(win)</span>
+                        <span class="s1">posicaoPlayer = posicaoPlayer - </span><span class="s3">4</span>
+                        <span class="s1">posicaoPlayerEsq = posicaoPlayerEsq - </span><span class="s3">4</span>
+                        <span class="s1">player_cont += </span><span class="s3">1</span>
+
+                    <span class="s0">if </span><span class="s1">player_cont &gt;= </span><span class="s3">3 </span><span class="s0">and </span><span class="s1">player_cont &lt; </span><span class="s3">6</span><span class="s1">:</span>
+                        <span class="s1">player.move(-</span><span class="s3">4</span><span class="s0">, </span><span class="s3">0</span><span class="s1">)</span>
+                        <span class="s1">playerCentro = player.getAnchor()</span>
+                        <span class="s1">player.undraw()</span>
+                        <span class="s1">player = Image(playerCentro</span><span class="s0">, </span><span class="s2">&quot;sprite2.png&quot;</span><span class="s1">)</span>
+                        <span class="s1">player.draw(win)</span>
+                        <span class="s1">posicaoPlayer = posicaoPlayer - </span><span class="s3">4</span>
+                        <span class="s1">posicaoPlayerEsq = posicaoPlayerEsq - </span><span class="s3">4</span>
+                        <span class="s1">player_cont += </span><span class="s3">1</span>
+
+
+                    <span class="s0">if </span><span class="s1">player_cont &gt;= </span><span class="s3">6 </span><span class="s0">and </span><span class="s1">player_cont &lt; </span><span class="s3">9</span><span class="s1">:</span>
+                        <span class="s1">player.move(-</span><span class="s3">4</span><span class="s0">, </span><span class="s3">0</span><span class="s1">)</span>
+                        <span class="s1">playerCentro = player.getAnchor()</span>
+                        <span class="s1">player.undraw()</span>
+                        <span class="s1">player = Image(playerCentro</span><span class="s0">, </span><span class="s2">&quot;sprite3.png&quot;</span><span class="s1">)</span>
+                        <span class="s1">player.draw(win)</span>
+                        <span class="s1">posicaoPlayer = posicaoPlayer - </span><span class="s3">4</span>
+                        <span class="s1">posicaoPlayerEsq = posicaoPlayerEsq - </span><span class="s3">4</span>
+                        <span class="s1">player_cont += </span><span class="s3">1</span>
+
+                    <span class="s0">if </span><span class="s1">player_cont &gt;= </span><span class="s3">9 </span><span class="s0">and </span><span class="s1">player_cont &lt; </span><span class="s3">12</span><span class="s1">:</span>
+                        <span class="s1">player.move(-</span><span class="s3">4</span><span class="s0">, </span><span class="s3">0</span><span class="s1">)</span>
+                        <span class="s1">playerCentro = player.getAnchor()</span>
+                        <span class="s1">player.undraw()</span>
+                        <span class="s1">player = Image(playerCentro</span><span class="s0">, </span><span class="s2">&quot;sprite4.png&quot;</span><span class="s1">)</span>
+                        <span class="s1">player.draw(win)</span>
+                        <span class="s1">posicaoPlayer = posicaoPlayer - </span><span class="s3">4</span>
+                        <span class="s1">posicaoPlayerEsq = posicaoPlayerEsq - </span><span class="s3">4</span>
+                        <span class="s1">player_cont += </span><span class="s3">1</span>
+
+                    <span class="s0">if </span><span class="s1">player_cont == </span><span class="s3">12</span><span class="s1">:</span>
+                        <span class="s1">player_cont = </span><span class="s3">0</span>
+
+            <span class="s0">elif </span><span class="s1">key == </span><span class="s2">&quot;w&quot; </span><span class="s0">or </span><span class="s1">key == </span><span class="s2">&quot;W&quot; </span><span class="s0">or </span><span class="s1">key == </span><span class="s2">&quot;Up&quot;</span><span class="s1">:</span>
+                <span class="s0">if </span><span class="s1">posicao==</span><span class="s3">0 </span><span class="s0">and </span><span class="s1">playerVivo==</span><span class="s3">1</span><span class="s1">:</span>
+                    <span class="s1">player.move(-</span><span class="s3">15</span><span class="s0">,</span><span class="s1">-</span><span class="s3">30</span><span class="s1">)</span>
+                    <span class="s1">posicao+=</span><span class="s3">1</span>
+                    <span class="s1">posicaoPlayer=posicaoPlayer-</span><span class="s3">15</span>
+                    <span class="s1">posicaoPlayerEsq=posicaoPlayerEsq-</span><span class="s3">15</span>
+
+            <span class="s0">elif </span><span class="s1">key == </span><span class="s2">&quot;s&quot; </span><span class="s0">or </span><span class="s1">key == </span><span class="s2">&quot;S&quot; </span><span class="s0">or </span><span class="s1">key == </span><span class="s2">&quot;Down&quot;</span><span class="s1">:</span>
+                <span class="s0">if </span><span class="s1">posicao==</span><span class="s3">1 </span><span class="s0">and </span><span class="s1">playerVivo ==</span><span class="s3">1</span><span class="s1">:</span>
+                    <span class="s1">player.move(</span><span class="s3">15</span><span class="s0">,</span><span class="s3">30</span><span class="s1">)</span>
+                    <span class="s1">posicao-=</span><span class="s3">1</span>
+                    <span class="s1">posicaoPlayer=posicaoPlayer+</span><span class="s3">15</span>
+                    <span class="s1">posicaoPlayerEsq=posicaoPlayerEsq+</span><span class="s3">15</span>
+
+            <span class="s0">else</span><span class="s1">:</span>
+                <span class="s0">if </span><span class="s1">playerVivo==</span><span class="s3">1</span><span class="s1">:</span>
+                    <span class="s0">if </span><span class="s1">player_cont &lt; </span><span class="s3">3</span><span class="s1">:</span>
+                        <span class="s1">playerCentro = player.getAnchor()</span>
+                        <span class="s1">player.undraw()</span>
+                        <span class="s1">player = Image(playerCentro </span><span class="s0">, </span><span class="s2">&quot;sprite1.png&quot;</span><span class="s1">)</span>
+                        <span class="s1">player.draw(win)</span>
+                        <span class="s1">player_cont+=</span><span class="s3">1</span>
+
+                    <span class="s0">if </span><span class="s1">player_cont &gt;= </span><span class="s3">3 </span><span class="s0">and </span><span class="s1">player_cont &lt; </span><span class="s3">6</span><span class="s1">:</span>
+                        <span class="s1">playerCentro = player.getAnchor()</span>
+                        <span class="s1">player.undraw()</span>
+                        <span class="s1">player = Image(playerCentro </span><span class="s0">, </span><span class="s2">&quot;sprite2.png&quot;</span><span class="s1">)</span>
+                        <span class="s1">player.draw(win)</span>
+                        <span class="s1">player_cont += </span><span class="s3">1</span>
+
+                    <span class="s0">if </span><span class="s1">player_cont &gt;= </span><span class="s3">6 </span><span class="s0">and </span><span class="s1">player_cont &lt; </span><span class="s3">9</span><span class="s1">:</span>
+                        <span class="s1">playerCentro = player.getAnchor()</span>
+                        <span class="s1">player.undraw()</span>
+                        <span class="s1">player = Image(playerCentro </span><span class="s0">, </span><span class="s2">&quot;sprite3.png&quot;</span><span class="s1">)</span>
+                        <span class="s1">player.draw(win)</span>
+                        <span class="s1">player_cont += </span><span class="s3">1</span>
+
+                    <span class="s0">if </span><span class="s1">player_cont &gt;= </span><span class="s3">9 </span><span class="s0">and </span><span class="s1">player_cont &lt; </span><span class="s3">12</span><span class="s1">:</span>
+                        <span class="s1">playerCentro = player.getAnchor()</span>
+                        <span class="s1">player.undraw()</span>
+                        <span class="s1">player = Image(playerCentro </span><span class="s0">, </span><span class="s2">&quot;sprite4.png&quot;</span><span class="s1">)</span>
+                        <span class="s1">player.draw(win)</span>
+                        <span class="s1">player_cont += </span><span class="s3">1</span>
+
+                    <span class="s0">if </span><span class="s1">player_cont == </span><span class="s3">12</span><span class="s1">:</span>
+                        <span class="s1">player_cont = </span><span class="s3">0</span>
+
+
+            <span class="s4">#cenario</span>
+            <span class="s0">if </span><span class="s1">cenarioMovimento==</span><span class="s3">1 </span><span class="s0">and </span><span class="s1">playerVivo==</span><span class="s3">1</span><span class="s1">:</span>
+                <span class="s1">cenario.move(-</span><span class="s3">13</span><span class="s0">,</span><span class="s3">0</span><span class="s1">)</span>
+                <span class="s1">paralax.move(-</span><span class="s3">0.2</span><span class="s0">,</span><span class="s3">0</span><span class="s1">)</span>
+                <span class="s1">cenarioLocal=cenarioLocal+</span><span class="s3">13</span>
+                <span class="s0">if </span><span class="s1">cenarioLocal&gt;</span><span class="s3">29500</span><span class="s1">:</span>
+                    <span class="s1">podeJogar=</span><span class="s3">0</span>
+                    <span class="s1">cenarioMovimento=</span><span class="s3">0</span>
+
+            <span class="s4">#skate</span>
+            <span class="s0">if </span><span class="s1">skateMove==</span><span class="s3">1</span><span class="s1">:</span>
+                <span class="s0">if </span><span class="s1">skate_cont&gt;=</span><span class="s3">0</span><span class="s1">:</span>
+                    <span class="s1">skate.undraw()</span>
+                    <span class="s1">skate.move(-</span><span class="s3">20</span><span class="s0">,</span><span class="s3">0</span><span class="s1">)</span>
+                    <span class="s1">skateCentro = skate.getAnchor()</span>
+                    <span class="s1">skate = Image(skateCentro</span><span class="s0">, </span><span class="s2">&quot;skate.png&quot;</span><span class="s1">)</span>
+                    <span class="s1">skate.draw(win)</span>
+                    <span class="s1">skate_pos=skate_pos-</span><span class="s3">20</span>
+                    <span class="s1">skate_posDir = skate_posDir-</span><span class="s3">20</span>
+                    <span class="s1">skate_cont += </span><span class="s3">1</span>
+
+                <span class="s0">if </span><span class="s1">skate_cont&gt;</span><span class="s3">300</span><span class="s1">:</span>
+                    <span class="s1">skate.undraw()</span>
+                    <span class="s1">skate = Image(Point(</span><span class="s3">500</span><span class="s1">+</span><span class="s3">1000</span><span class="s0">, </span><span class="s3">370</span><span class="s1">)</span><span class="s0">, </span><span class="s2">&quot;skate.png&quot;</span><span class="s1">)</span>
+                    <span class="s1">skate.draw(win)</span>
+                    <span class="s1">skate_cont=</span><span class="s3">0</span>
+                    <span class="s1">skate_pos = </span><span class="s3">465 </span><span class="s1">+ </span><span class="s3">1000</span>
+                    <span class="s1">skate_posDir = </span><span class="s3">550 </span><span class="s1">+ </span><span class="s3">1000</span>
+
+            <span class="s0">if </span><span class="s1">skateMove==</span><span class="s3">0</span><span class="s1">:</span>
+                <span class="s0">if </span><span class="s1">skate_cont&gt;=</span><span class="s3">0</span><span class="s1">:</span>
+                    <span class="s1">skate.undraw()</span>
+                    <span class="s0">if </span><span class="s1">playerVivo==</span><span class="s3">1</span><span class="s1">:</span>
+                        <span class="s1">skate.move(-</span><span class="s3">13</span><span class="s0">,</span><span class="s3">0</span><span class="s1">)</span>
+                    <span class="s0">if </span><span class="s1">playerVivo==</span><span class="s3">0</span><span class="s1">:</span>
+                        <span class="s0">if </span><span class="s1">desenharSkatistaMorto==</span><span class="s3">1</span><span class="s1">:</span>
+                            <span class="s1">skate2Centro=skate.getAnchor()</span>
+                            <span class="s1">skate2 = Image(skate2Centro</span><span class="s0">, </span><span class="s2">&quot;skatecaido.png&quot;</span><span class="s1">)</span>
+                            <span class="s1">skate2.draw(win)</span>
+                            <span class="s1">desenharSkatistaMorto=</span><span class="s3">0</span>
+                    <span class="s1">skateCentro = skate.getAnchor()</span>
+                    <span class="s1">skate = Image(skateCentro</span><span class="s0">, </span><span class="s2">&quot;skatecaido.png&quot;</span><span class="s1">)</span>
+                    <span class="s1">skate.draw(win)</span>
+                    <span class="s1">skate_cont += </span><span class="s3">1</span>
+                <span class="s0">if </span><span class="s1">skate_cont&gt;</span><span class="s3">500</span><span class="s1">:</span>
+                    <span class="s1">skateMove=</span><span class="s3">1</span>
+
+
+
+
+            <span class="s4">#ANIMAÇÃO DO CACHORRO</span>
+            <span class="s4">#se o cachorro tiver longe, spawna ele de novo</span>
+            <span class="s0">if </span><span class="s1">localCachorro &gt;</span><span class="s3">500</span><span class="s1">:</span>
+                <span class="s1">imagem.undraw()</span>
+                <span class="s1">imagem = Image(Point(</span><span class="s3">400</span><span class="s1">+</span><span class="s3">1000</span><span class="s0">, </span><span class="s3">380</span><span class="s1">)</span><span class="s0">, </span><span class="s2">&quot;cachorro1.png&quot;</span><span class="s1">)</span>
+                <span class="s1">centro = imagem.getAnchor()</span>
+                <span class="s1">localCachorro=</span><span class="s3">0</span>
+                <span class="s1">cachorro = </span><span class="s3">0</span>
+                <span class="s1">cachorroPosEsq = </span><span class="s3">350 </span><span class="s1">+ </span><span class="s3">1000</span>
+                <span class="s1">cachorroPosDir = </span><span class="s3">450 </span><span class="s1">+ </span><span class="s3">1000</span>
+
+            <span class="s0">else</span><span class="s1">:</span>
+                <span class="s0">if </span><span class="s1">cachorro&lt;</span><span class="s3">3</span><span class="s1">:</span>
+                    <span class="s1">imagem.move(-</span><span class="s3">20</span><span class="s0">,</span><span class="s3">0</span><span class="s1">)</span>
+                    <span class="s1">centro = imagem.getAnchor()</span>
+                    <span class="s1">imagem.undraw()</span>
+                    <span class="s1">imagem = Image(centro</span><span class="s0">, </span><span class="s2">&quot;cachorro1.png&quot;</span><span class="s1">)</span>
+                    <span class="s1">imagem.draw(win)</span>
+                    <span class="s1">cachorro += </span><span class="s3">1</span>
+                    <span class="s1">localCachorro+=</span><span class="s3">1</span>
+                    <span class="s1">cachorroPosDir=cachorroPosDir-</span><span class="s3">20</span>
+                    <span class="s1">cachorroPosEsq=cachorroPosEsq-</span><span class="s3">20</span>
+
+
+                <span class="s0">if </span><span class="s1">cachorro&gt;=</span><span class="s3">3 </span><span class="s0">and </span><span class="s1">cachorro &lt;</span><span class="s3">6</span><span class="s1">:</span>
+                    <span class="s1">imagem.move(-</span><span class="s3">20</span><span class="s0">, </span><span class="s3">0</span><span class="s1">)</span>
+                    <span class="s1">centro = imagem.getAnchor()</span>
+                    <span class="s1">imagem.undraw()</span>
+                    <span class="s1">imagem = Image(centro</span><span class="s0">, </span><span class="s2">&quot;cachorro2.png&quot;</span><span class="s1">)</span>
+                    <span class="s1">imagem.draw(win)</span>
+                    <span class="s1">cachorro += </span><span class="s3">1</span>
+                    <span class="s1">localCachorro += </span><span class="s3">1</span>
+                    <span class="s1">cachorroPosDir=cachorroPosDir-</span><span class="s3">20</span>
+                    <span class="s1">cachorroPosEsq=cachorroPosEsq-</span><span class="s3">20</span>
+
+                <span class="s0">if </span><span class="s1">cachorro&gt;=</span><span class="s3">6 </span><span class="s0">and </span><span class="s1">cachorro &lt;</span><span class="s3">9</span><span class="s1">:</span>
+                    <span class="s1">imagem.move(-</span><span class="s3">20</span><span class="s0">, </span><span class="s3">0</span><span class="s1">)</span>
+                    <span class="s1">centro = imagem.getAnchor()</span>
+                    <span class="s1">imagem.undraw()</span>
+                    <span class="s1">imagem = Image(centro</span><span class="s0">, </span><span class="s2">&quot;cachorro3.png&quot;</span><span class="s1">)</span>
+                    <span class="s1">imagem.draw(win)</span>
+                    <span class="s1">cachorro += </span><span class="s3">1</span>
+                    <span class="s1">localCachorro += </span><span class="s3">1</span>
+                    <span class="s1">cachorroPosDir=cachorroPosDir-</span><span class="s3">20</span>
+                    <span class="s1">cachorroPosEsq=cachorroPosEsq-</span><span class="s3">20</span>
+
+                <span class="s0">if </span><span class="s1">cachorro==</span><span class="s3">9</span><span class="s1">:</span>
+                    <span class="s1">cachorro=</span><span class="s3">0</span>
+
+
+            <span class="s4">#Animação do carro</span>
+            <span class="s0">if </span><span class="s1">carroPode==</span><span class="s3">1</span><span class="s1">:</span>
+                <span class="s1">carro.move(-</span><span class="s3">20</span><span class="s0">,</span><span class="s3">0</span><span class="s1">)</span>
+                <span class="s1">carro_cont += </span><span class="s3">1</span>
+                <span class="s0">if </span><span class="s1">carro_cont&gt;</span><span class="s3">400</span><span class="s1">:</span>
+                    <span class="s1">carro.undraw()</span>
+                    <span class="s1">carro = Image(Point(</span><span class="s3">1500</span><span class="s0">, </span><span class="s3">587</span><span class="s1">)</span><span class="s0">, </span><span class="s2">&quot;carro.png&quot;</span><span class="s1">)</span>
+                    <span class="s1">carro.draw(win)</span>
+                    <span class="s1">carro_cont=</span><span class="s3">0</span>
+
+
+
+
+
+    <span class="s1">win.close()</span>
+
+<span class="s1">main()</span></pre>
+</body>
+</html>
